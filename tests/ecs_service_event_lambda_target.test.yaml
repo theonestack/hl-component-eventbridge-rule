@@ -1,0 +1,23 @@
+test_metadata:
+  type: config
+  name: ecs_service_event_lambda_target
+
+events:
+  TestEvent:
+    type: event_pattern
+    source: ["aws.ecs"]
+    detail_type: ["ECS Task State Change"]
+    detail:
+      lastStatus: ["RUNNING"]
+      desiredStatus: ["RUNNING"]
+      clusterArn: ["arn:aws:ecs:ap-southeast-2:123456789012:cluster/cluster1"]
+      group: ["service:nginx"]
+    targets:
+    - arn: arn:aws:lambda:ap-southeast-2:123456789012:function:hello-world
+      id: HelloWorldLambda
+      input:
+        target_recycle_cluster_arn: "arn:aws:ecs:ap-southeast-2:123456789012:cluster/cluster1"
+        target_recycle_service_name: "nginx"
+        target_recycle_service_warmup_period_second: 0
+      dlq_arn: arn:aws:sqs:ap-southeast-2:123456789012:dlq
+      type: lambda
