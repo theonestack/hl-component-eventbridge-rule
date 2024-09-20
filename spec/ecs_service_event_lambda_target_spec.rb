@@ -33,7 +33,7 @@ describe 'compiled component eventbridge-rule' do
       end
       
       it "to have property Targets" do
-          expect(resource["Properties"]["Targets"]).to eq([{"Arn"=>"arn:aws:lambda:ap-southeast-2:123456789012:function:hello-world", "Id"=>{"Fn::Sub"=>"${EnvironmentName}-HelloWorldLambda"}, "Input"=>{"Fn::Sub"=>"{\"target_recycle_cluster_arn\":\"arn:aws:ecs:ap-southeast-2:123456789012:cluster/cluster1\",\"target_recycle_service_name\":\"nginx\",\"target_recycle_service_warmup_period_second\":0}"}, "DeadLetterConfig"=>{"Arn"=>"arn:aws:sqs:ap-southeast-2:123456789012:dlq"}}])
+          expect(resource["Properties"]["Targets"]).to eq([{"Arn"=>{"Fn::Sub"=>"arn:aws:lambda:ap-southeast-2:123456789012:function:hello-world"}, "Id"=>{"Fn::Sub"=>"${EnvironmentName}-HelloWorldLambda"}, "Input"=>{"Fn::Sub"=>"{\"target_recycle_cluster_arn\":\"arn:aws:ecs:ap-southeast-2:123456789012:cluster/cluster1\",\"target_recycle_service_name\":\"nginx\",\"target_recycle_service_warmup_period_second\":0}"}, "DeadLetterConfig"=>{"Arn"=>{"Fn::Sub"=>"arn:aws:sqs:ap-southeast-2:123456789012:dlq"}}}])
       end
       
     end
@@ -46,7 +46,7 @@ describe 'compiled component eventbridge-rule' do
       end
       
       it "to have property FunctionName" do
-          expect(resource["Properties"]["FunctionName"]).to eq("arn:aws:lambda:ap-southeast-2:123456789012:function:hello-world")
+          expect(resource["Properties"]["FunctionName"]).to eq({"Fn::Sub"=>"arn:aws:lambda:ap-southeast-2:123456789012:function:hello-world"})
       end
       
       it "to have property Action" do
